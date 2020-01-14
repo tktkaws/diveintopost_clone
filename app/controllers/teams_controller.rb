@@ -47,6 +47,15 @@ class TeamsController < ApplicationController
     @team = current_user.keep_team_id ? Team.find(current_user.keep_team_id) : current_user.teams.first
   end
 
+  def change_owner
+    @user = User.find(params[:assign_user_id])
+    @working_team.owner = @user
+    if @working_team.update(team_params)
+      redirect_to @working_team, notice: "オーナーを変更しました"
+      ChangeOwnerMailer.change_owner_mail(@working_team).deliver
+    end
+  end
+
   private
 
   def set_team
