@@ -24,12 +24,9 @@ class AgendasController < ApplicationController
   def destroy
     if current_user == @agenda.user || current_user == @agenda.team.owner
       @agenda.destroy
-      redirect_to dashboard_url, notice: "成功"
+      DestroyMailer.destroy_mail(@agenda).deliver
+      redirect_to dashboard_url, notice: "Agendaが削除されました"
     end
-    # Agendaが削除されると、そのAgendaに紐づいているTeamに所属しているユーザー全員に通知メールが飛ぶ
-    # 情報処理が完了した後はDashBoardに飛ぶ
-    # redirect_to dashboard_url notice: 成功
-
   end
 
   private
