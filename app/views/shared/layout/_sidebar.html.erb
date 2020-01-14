@@ -37,7 +37,9 @@
                 <%= agenda.title %>
               </div>
               <div class="d-inline float-right">
-                <%= link_to 'delete', agenda_path(agenda), method: :delete%>
+                <% if current_user == agenda.user || current_user == agenda.team.owner %>
+                  <%= link_to 'delete', agenda_path(agenda), method: :delete%>
+                <% end %>
                 <i class="right fa fa-angle-left ml-2"></i>
               </div>
               </p>
