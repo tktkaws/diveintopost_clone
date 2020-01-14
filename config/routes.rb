@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   
   resources :teams do
     member do
-      patch 'change_owner', to: 'teams#change_owner'
+      patch :change_owner
     end
     resources :assigns, only: %w(create destroy)
     resources :agendas, shallow: true do

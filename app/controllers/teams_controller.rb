@@ -48,12 +48,10 @@ class TeamsController < ApplicationController
   end
 
   def change_owner
-    @team = @working_team
-    assign = Assign.find(params[:id])
-    @user = User.find(assign.user_id)
-    @team.owner = @user
-    if @team.update(team_params)
-      redirect_to @team, notice: "オーナーを変更しました"
+    @user = User.find(params[:assign_user_id])
+    @working_team.owner = @user
+    if @working_team.update(team_params)
+      redirect_to @working_team, notice: "オーナーを変更しました"
     end
   end
 
