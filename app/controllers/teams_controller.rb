@@ -52,6 +52,7 @@ class TeamsController < ApplicationController
     @working_team.owner = @user
     if @working_team.update(team_params)
       redirect_to @working_team, notice: "オーナーを変更しました"
+      ChangeOwnerMailer.change_owner_mail(@working_team).deliver
     end
   end
 
